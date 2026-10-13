@@ -15,14 +15,8 @@
 //   OUT_DIR            Directorio de salida (por defecto "_site").
 
 import { copyFile, mkdir, readFile, writeFile } from "node:fs/promises";
-import { createHash } from "node:crypto";
 import { join } from "node:path";
 
-// iOS no siempre aplica (display-mode: standalone) al abrir desde la pantalla
-// de inicio; navigator.standalone sí es fiable allí. Se permite por hash en la CSP.
-const standaloneScript =
-  `if (navigator.standalone || matchMedia("(display-mode: standalone)").matches) document.documentElement.classList.add("standalone");`;
-const standaloneHash = createHash("sha256").update(standaloneScript).digest("base64");
 
 const API = "https://api.github.com";
 const token = process.env.GITHUB_TOKEN || "";
@@ -140,14 +134,13 @@ function render(sites, generatedAt) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-${standaloneHash}'; manifest-src 'self'; style-src 'unsafe-inline'; img-src 'self' data:; base-uri 'none'; form-action 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; manifest-src 'self'; style-src 'unsafe-inline'; img-src 'self' data:; base-uri 'none'; form-action 'none'">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <title>${esc(owner)} · Proyectos</title>
   <meta name="description" content="Sitios publicados con GitHub Pages por ${esc(owner)}.">
   <link rel="icon" href="icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="icon.png">
   <link rel="manifest" href="manifest.webmanifest">
-  <script>${standaloneScript}</script>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <style>
@@ -166,7 +159,7 @@ function render(sites, generatedAt) {
       margin: 0; background: var(--bg); color: var(--text);
       font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
     }
-    main { max-width: 960px; margin: 0 auto; padding: 56px 16px 40px; }
+    main { max-width: 960px; margin: 0 auto; padding: 56px 16px calc(env(safe-area-inset-bottom) + 40px); }
     header h1 { margin: 0; font-size: 2rem; letter-spacing: -0.02em; }
     header p { margin: 6px 0 32px; color: var(--muted); }
     header a { color: inherit; }
@@ -194,37 +187,25 @@ function render(sites, generatedAt) {
     }
     .source:hover { color: var(--accent); text-decoration: underline; }
     .empty { color: var(--muted); }
-    /* Botón de recargar (equivalente a Cmd + R): solo en pantalla completa
-       (app añadida a la pantalla de inicio), donde no hay barra del navegador. */
     .reload {
-      display: none; position: fixed; z-index: 10;
-      top: calc(env(safe-area-inset-top) + 10px); right: calc(env(safe-area-inset-right) + 12px);
-      width: 40px; height: 40px; align-items: center; justify-content: center;
-      border: 1px solid var(--border); border-radius: 999px;
-      background: var(--surface); color: var(--text); text-decoration: none;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, .12);
+      display: block; width: 100%; margin-top: 32px; padding: 14px 16px;
+      border: 1px solid var(--border); border-radius: 12px;
+      background: var(--surface); color: var(--text); text-align: center;
+      font-weight: 600; text-decoration: none;
     }
-    .reload:active { transform: scale(.94); }
-    .reload svg { width: 20px; height: 20px; }
-    @media (display-mode: standalone), (display-mode: fullscreen) {
-      .reload { display: inline-flex; }
-      main { padding-top: calc(env(safe-area-inset-top) + 56px); }
-    }
-    .standalone .reload { display: inline-flex; }
-    .standalone main { padding-top: calc(env(safe-area-inset-top) + 56px); }
+    .reload:hover, .reload:focus-visible { border-color: var(--accent); }
+    .reload:active { transform: scale(.99); }
     footer { margin-top: 40px; color: var(--muted); font-size: .8rem; }
   </style>
 </head>
 <body>
-  <a class="reload" href="./" aria-label="Recargar" title="Recargar (Cmd + R)">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg>
-  </a>
   <main>
     <header>
       <h1>${esc(owner)}</h1>
       <p>Proyectos publicados con GitHub Pages · <a href="https://github.com/${esc(owner)}">github.com/${esc(owner)}</a></p>
     </header>
     ${list}
+    <a class="reload" href="./">Actualizar</a>
     <footer>Actualizado automáticamente el ${esc(generatedAt)} UTC.</footer>
   </main>
 </body>
