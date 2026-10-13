@@ -15,7 +15,14 @@
 //   OUT_DIR            Directorio de salida (por defecto "_site").
 
 import { copyFile, mkdir, readFile, writeFile } from "node:fs/promises";
+import { createHash } from "node:crypto";
 import { join } from "node:path";
+
+// iOS no siempre aplica (display-mode: standalone) al abrir desde la pantalla
+// de inicio; navigator.standalone sí es fiable allí. Se permite por hash en la CSP.
+const standaloneScript =
+  `if (navigator.standalone || matchMedia("(display-mode: standalone)").matches) document.documentElement.classList.add("standalone");`;
+const standaloneHash = createHash("sha256").update(standaloneScript).digest("base64");
 
 const API = "https://api.github.com";
 const token = process.env.GITHUB_TOKEN || "";
@@ -133,12 +140,14 @@ function render(sites, generatedAt) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; img-src 'self' data:; base-uri 'none'; form-action 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-${standaloneHash}'; manifest-src 'self'; style-src 'unsafe-inline'; img-src 'self' data:; base-uri 'none'; form-action 'none'">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <title>${esc(owner)} · Proyectos</title>
   <meta name="description" content="Sitios publicados con GitHub Pages por ${esc(owner)}.">
   <link rel="icon" href="icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="icon.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <script>${standaloneScript}</script>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <style>
@@ -201,6 +210,8 @@ function render(sites, generatedAt) {
       .reload { display: inline-flex; }
       main { padding-top: calc(env(safe-area-inset-top) + 56px); }
     }
+    .standalone .reload { display: inline-flex; }
+    .standalone main { padding-top: calc(env(safe-area-inset-top) + 56px); }
     footer { margin-top: 40px; color: var(--muted); font-size: .8rem; }
   </style>
 </head>
@@ -254,6 +265,17 @@ const generatedAt = new Date().toISOString().slice(0, 16).replace("T", " ");
 await mkdir(outDir, { recursive: true });
 await writeFile(join(outDir, "index.html"), render(sites, generatedAt));
 await writeFile(join(outDir, ".nojekyll"), "");
+await writeFile(
+  join(outDir, "manifest.webmanifest"),
+  JSON.stringify({
+    name: `${owner} · Proyectos`,
+    short_name: owner,
+    start_url: "./",
+    scope: "./",
+    display: "standalone",
+    icons: [{ src: "icon.png", sizes: "1024x1024", type: "image/png" }],
+  }, null, 2),
+);
 const logoDir = new URL("../assets/logo/", import.meta.url);
 await copyFile(new URL("icon.svg", logoDir), join(outDir, "icon.svg"));
 await copyFile(new URL("icon.png", logoDir), join(outDir, "icon.png"));
