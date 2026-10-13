@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+<title>LRR · 3D</title>
+<defs>
+  <linearGradient id="lrr12-bg" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#5CCBFF"/><stop offset="1" stop-color="#2468F2"/>
+  </linearGradient>
+  <linearGradient id="lrr12-side" gradientUnits="userSpaceOnUse" x1="0" y1="317" x2="0" y2="699">
+    <stop offset="0" stop-color="#FF9F43"/><stop offset="1" stop-color="#E8455A"/>
+  </linearGradient>
+  <linearGradient id="lrr12-face" gradientUnits="userSpaceOnUse" x1="0" y1="317" x2="0" y2="663">
+    <stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#FFF1E2"/>
+  </linearGradient>
+  <filter id="lrr12-shadow" x="-20%" y="-20%" width="140%" height="170%">
+    <feDropShadow dx="20" dy="34" stdDeviation="22" flood-color="#0A2A8A" flood-opacity=".45"/>
+  </filter>
+  <path id="lrr12-g" d="M145 663.4V316.6H228.3V663.4ZM159.1 663.4V593.4H328.6V663.4ZM341.2 663.4V316.6H456.2Q476.1 316.6 494.2 320.5Q512.3 324.4 527.2 332.6Q542 340.8 553.1 352.9Q564.1 365 570.2 381.6Q576.2 398.1 576.2 419.1Q576.2 436.1 571.5 451Q566.7 465.9 556.5 477.6Q546.2 489.4 530.6 497.3Q514.9 505.2 493.3 508.4V512.9Q523.4 514.2 539.3 525.1Q555.2 536 562.3 553.7Q569.5 571.3 572.9 593.3L585.7 663.4H497.6L489.5 602.5Q487.3 584.6 483.1 571.5Q478.9 558.4 469.8 551.3Q460.7 544.1 443.2 543.8H423.8V663.4ZM423.8 485.4H447.3Q469.6 485.4 480.9 472.8Q492.2 460.1 492.2 432.8Q492.2 406.2 482.1 394.4Q472 382.7 450.7 382.7H423.8ZM600.5 663.4V316.6H715.5Q735.5 316.6 753.5 320.5Q771.6 324.4 786.5 332.6Q801.4 340.8 812.4 352.9Q823.5 365 829.5 381.6Q835.5 398.1 835.5 419.1Q835.5 436.1 830.8 451Q826.1 465.9 815.8 477.6Q805.6 489.4 789.9 497.3Q774.3 505.2 752.6 508.4V512.9Q782.8 514.2 798.6 525.1Q814.5 536 821.7 553.7Q828.8 571.3 832.3 593.3L845 663.4H756.9L748.8 602.5Q746.6 584.6 742.4 571.5Q738.2 558.4 729.1 551.3Q720 544.1 702.6 543.8H683.1V663.4ZM683.1 485.4H706.7Q728.9 485.4 740.2 472.8Q751.5 460.1 751.5 432.8Q751.5 406.2 741.5 394.4Q731.4 382.7 710 382.7H683.1Z"/>
+</defs>
+<rect width="1024" height="1024" fill="url(#lrr12-bg)"/>
+<circle cx="250" cy="200" r="300" fill="#fff" opacity=".12"/>
+<g filter="url(#lrr12-shadow)" fill="url(#lrr12-side)"><use href="#lrr12-g" x="1" y="1"/><use href="#lrr12-g" x="2" y="2"/><use href="#lrr12-g" x="3" y="3"/><use href="#lrr12-g" x="4" y="4"/><use href="#lrr12-g" x="5" y="5"/><use href="#lrr12-g" x="6" y="6"/><use href="#lrr12-g" x="7" y="7"/><use href="#lrr12-g" x="8" y="8"/><use href="#lrr12-g" x="9" y="9"/><use href="#lrr12-g" x="10" y="10"/><use href="#lrr12-g" x="11" y="11"/><use href="#lrr12-g" x="12" y="12"/><use href="#lrr12-g" x="13" y="13"/><use href="#lrr12-g" x="14" y="14"/><use href="#lrr12-g" x="15" y="15"/><use href="#lrr12-g" x="16" y="16"/><use href="#lrr12-g" x="17" y="17"/><use href="#lrr12-g" x="18" y="18"/><use href="#lrr12-g" x="19" y="19"/><use href="#lrr12-g" x="20" y="20"/><use href="#lrr12-g" x="21" y="21"/><use href="#lrr12-g" x="22" y="22"/><use href="#lrr12-g" x="23" y="23"/><use href="#lrr12-g" x="24" y="24"/><use href="#lrr12-g" x="25" y="25"/><use href="#lrr12-g" x="26" y="26"/><use href="#lrr12-g" x="27" y="27"/><use href="#lrr12-g" x="28" y="28"/><use href="#lrr12-g" x="29" y="29"/><use href="#lrr12-g" x="30" y="30"/><use href="#lrr12-g" x="31" y="31"/><use href="#lrr12-g" x="32" y="32"/><use href="#lrr12-g" x="33" y="33"/><use href="#lrr12-g" x="34" y="34"/><use href="#lrr12-g" x="35" y="35"/><use href="#lrr12-g" x="36" y="36"/></g>
+<use href="#lrr12-g" fill="url(#lrr12-face)"/>
+<use href="#lrr12-g" fill="none" stroke="#fff" stroke-width="3" opacity=".9"/>
+</svg>
