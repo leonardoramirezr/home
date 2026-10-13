@@ -1,13 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
-<title>LRR · CMYK</title>
+<title>LRR</title>
 <defs>
-  <filter id="lrr11-paper" x="0" y="0" width="100%" height="100%">
+  <filter id="lrr-paper" x="0" y="0" width="100%" height="100%">
     <feTurbulence type="fractalNoise" baseFrequency=".8" numOctaves="3" seed="2"/>
     <feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .05 0"/>
   </filter>
 </defs>
 <rect width="1024" height="1024" fill="#FAF7F0"/>
-<rect width="1024" height="1024" filter="url(#lrr11-paper)"/>
+<rect width="1024" height="1024" filter="url(#lrr-paper)"/>
 <g style="isolation:isolate"><path d="M132 714.1V309.9H208.2V644.8H393V714.1Z" fill="#00AEEF" style="mix-blend-mode:multiply"/><path d="M335.3 714.1V309.9H510.8Q549 309.9 577.3 323.2Q605.6 336.4 621.1 360.7Q636.7 384.9 636.7 417.9V424.8Q636.7 461.2 619.4 483.7Q602.1 506.2 576.7 516.6V527Q599.8 528.2 612.5 542.9Q625.2 557.6 625.2 581.9V714.1H549V592.9Q549 579 541.7 570.3Q534.5 561.7 517.8 561.7H411.5V714.1ZM411.5 492.4H502.8Q529.9 492.4 545.2 477.6Q560.5 462.9 560.5 438.7V432.9Q560.5 408.6 545.5 393.9Q530.5 379.2 502.8 379.2H411.5Z" fill="#EC008C" style="mix-blend-mode:multiply"/><path d="M590.5 714.1V309.9H766.1Q804.2 309.9 832.5 323.2Q860.8 336.4 876.4 360.7Q892 384.9 892 417.9V424.8Q892 461.2 874.7 483.7Q857.3 506.2 831.9 516.6V527Q855 528.2 867.7 542.9Q880.4 557.6 880.4 581.9V714.1H804.2V592.9Q804.2 579 797 570.3Q789.8 561.7 773 561.7H666.8V714.1ZM666.8 492.4H758Q785.2 492.4 800.5 477.6Q815.8 462.9 815.8 438.7V432.9Q815.8 408.6 800.8 393.9Q785.7 379.2 758 379.2H666.8Z" fill="#FFD200" style="mix-blend-mode:multiply"/></g>
 <g fill="none" stroke="#1A1A1A" stroke-width="3" opacity=".7">
   <circle cx="150" cy="150" r="16"/><path d="M150 124V176M124 150H176"/>
