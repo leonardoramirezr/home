@@ -132,13 +132,15 @@ function render(sites, generatedAt) {
 <html lang="es">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; img-src 'self' data:; base-uri 'none'; form-action 'none'">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <title>${esc(owner)} · Proyectos</title>
   <meta name="description" content="Sitios publicados con GitHub Pages por ${esc(owner)}.">
   <link rel="icon" href="icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
   <style>
     :root {
       --bg: #f7f7f5; --surface: #ffffff; --text: #1c1c1a; --muted: #6b6b66;
@@ -183,10 +185,29 @@ function render(sites, generatedAt) {
     }
     .source:hover { color: var(--accent); text-decoration: underline; }
     .empty { color: var(--muted); }
+    /* Botón de recargar (equivalente a Cmd + R): solo en pantalla completa
+       (app añadida a la pantalla de inicio), donde no hay barra del navegador. */
+    .reload {
+      display: none; position: fixed; z-index: 10;
+      top: calc(env(safe-area-inset-top) + 10px); right: calc(env(safe-area-inset-right) + 12px);
+      width: 40px; height: 40px; align-items: center; justify-content: center;
+      border: 1px solid var(--border); border-radius: 999px;
+      background: var(--surface); color: var(--text); text-decoration: none;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, .12);
+    }
+    .reload:active { transform: scale(.94); }
+    .reload svg { width: 20px; height: 20px; }
+    @media (display-mode: standalone), (display-mode: fullscreen) {
+      .reload { display: inline-flex; }
+      main { padding-top: calc(env(safe-area-inset-top) + 56px); }
+    }
     footer { margin-top: 40px; color: var(--muted); font-size: .8rem; }
   </style>
 </head>
 <body>
+  <a class="reload" href="./" aria-label="Recargar" title="Recargar (Cmd + R)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg>
+  </a>
   <main>
     <header>
       <h1>${esc(owner)}</h1>
