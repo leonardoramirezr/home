@@ -14,7 +14,7 @@
 //   MOCK_REPOS_FILE    Ruta a un JSON con repos de ejemplo (pruebas locales sin red).
 //   OUT_DIR            Directorio de salida (por defecto "_site").
 
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { copyFile, mkdir, readFile, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 
 const API = "https://api.github.com";
@@ -137,7 +137,8 @@ function render(sites, generatedAt) {
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <title>${esc(owner)} · Proyectos</title>
   <meta name="description" content="Sitios publicados con GitHub Pages por ${esc(owner)}.">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8F%A0%3C/text%3E%3C/svg%3E">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon.png">
   <style>
     :root {
       --bg: #f7f7f5; --surface: #ffffff; --text: #1c1c1a; --muted: #6b6b66;
@@ -232,5 +233,8 @@ const generatedAt = new Date().toISOString().slice(0, 16).replace("T", " ");
 await mkdir(outDir, { recursive: true });
 await writeFile(join(outDir, "index.html"), render(sites, generatedAt));
 await writeFile(join(outDir, ".nojekyll"), "");
+const logoDir = new URL("../assets/logo/", import.meta.url);
+await copyFile(new URL("icon.svg", logoDir), join(outDir, "icon.svg"));
+await copyFile(new URL("icon.png", logoDir), join(outDir, "icon.png"));
 console.log(`${sites.length} sitio(s) con Pages:`);
 for (const s of sites) console.log(` - ${s.name}: ${s.url}`);
