@@ -195,7 +195,8 @@ function render(sites, generatedAt) {
     }
     .reload:hover, .reload:focus-visible { border-color: var(--accent); }
     .reload:active { transform: scale(.99); }
-    footer { margin-top: 40px; color: var(--muted); font-size: .8rem; }
+    footer { margin-top: 40px; color: var(--muted); font-size: .8rem; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+    footer a { color: inherit; }
   </style>
 </head>
 <body>
@@ -206,7 +207,10 @@ function render(sites, generatedAt) {
     </header>
     ${list}
     <a class="reload" href="./">Actualizar</a>
-    <footer>Actualizado automáticamente el ${esc(generatedAt)} UTC.</footer>
+    <footer>
+      <span>Actualizado automáticamente el ${esc(generatedAt)} UTC.</span>
+      <a href="https://github.com/leonardoramirezr/home">Código en GitHub</a>
+    </footer>
   </main>
 </body>
 </html>
